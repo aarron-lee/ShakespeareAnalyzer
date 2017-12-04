@@ -2,6 +2,33 @@ require 'faraday'
 require 'nokogiri'
 require 'byebug'
 
+
+class PlayCharacter
+
+  def initialize(character_name="")
+    @name = character_name
+  end
+
+  def lines=(lines)
+    @lines = lines
+    @line_count = @lines.count
+  end
+
+  def name
+    @name
+  end
+
+  def line_count
+    @line_count
+  end
+
+  def lines
+    @lines
+  end
+
+
+end
+
 class PlayInfo
 
   def initialize( play_xml )
@@ -9,11 +36,19 @@ class PlayInfo
       return nil
     end
     @characters = play_xml.xpath("//PERSONA").map do |character|
-      character.inner_text
+      play_char = PlayCharacter.new(character.inner_text)
+      play_char.lines = parseCharacterLines(play_xml, play_char)
+      play_char
     end
-    debugger
   end
 
+  def parseCharacterLines(play_xml, play_char)
+    char_name = play_char.name.gsub(/[!@%&, ."]/, '')
+    character_line_nodes = play_xml.search("SPEAKER[text()=#{char_name}] ~ LINE")
+    character_lines = character_line_nodes.map(&:inner_text)
+
+    return character_lines ? character_lines : []
+  end
 
 end
 
@@ -37,3 +72,19 @@ end
 api_endpoint = Api.new()
 
 play_info = api_endpoint.getPlayInfo()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//
