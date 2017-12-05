@@ -1,6 +1,7 @@
 .character-list li{
-  padding: 5px 10px;
-  border: 1px solid black;
+  padding: 10px 10px;
+  font-size: 20px;
+  text-align: center;
 }
 
 #mount-point{
@@ -9,10 +10,16 @@
   justify-content: center;
   align-items: center;
 }
+body{
+  background-color: gray;
+}
 
 .app-container{
   display: flex;
   flex-direction: column;
+  background-color: white;
+  margin: 20px;
+  padding: 20px;
 }
 .form-container{
   display: flex;
