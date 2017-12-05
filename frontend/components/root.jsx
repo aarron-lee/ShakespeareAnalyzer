@@ -44,7 +44,7 @@ class Root extends React.Component{
 
   render(){
     let characterComponents = this.state['play_characters'].map((character)=>{
-      return (<li key={character.name}>{character.name} - {character.line_count}</li>)
+      return (<li key={character.name}>{character.name} - {character.line_count} lines</li>)
     });
 
     return (<div className="app-container">
