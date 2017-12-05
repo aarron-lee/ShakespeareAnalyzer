@@ -1,7 +1,7 @@
 class Api::CharactersController < ApplicationController
 
   def index
-
+    render :json "it's working"
   end
 
 
