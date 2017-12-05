@@ -6,7 +6,6 @@ class Api::CharactersController < ApplicationController
       @play_name = params[:play_name]
     end
     api_endpoint = nil
-    debugger
     if( @play_name )
       api_endpoint = ApiEndpoint.new(@play_name)
     else
