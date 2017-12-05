@@ -47,24 +47,29 @@ class Root extends React.Component{
       return (<li key={character.name}>{character.name} - {character.line_count}</li>)
     });
 
-    return (<div className="form-container">
-      <form onSubmit={this.handleSubmit}>
-        <select value={this.state.play_name} onChange={this.handleChange}>
-          <option value="macbeth">Macbeth</option>
-          <option value="othello">Othello</option>
-          <option value="hamlet">Hamlet</option>
-          <option value="dream">A Midsummer Night's Dream</option>
-          <option value="j_caesar">Julius Caesar</option>
-          <option value="pericles">Pericles</option>
-          <option value="r_and_j">Romeo and Juliet</option>
-          <option value="win_tale">A Winter's Tale</option>
-        </select>
-        <button>Submit</button>
-      </form>
-      <ul className="character-list">
-        {characterComponents}
-      </ul>
-    </div>);
+    return (<div className="app-container">
+              <h1>Shakespeare Analyzer</h1>
+              <div className="form-container">
+                <form onSubmit={this.handleSubmit}>
+                  <h2>Select a Play to parse:</h2><br/>
+                  <select value={this.state.play_name} onChange={this.handleChange}>
+                    <option value="macbeth">Macbeth</option>
+                    <option value="othello">Othello</option>
+                    <option value="hamlet">Hamlet</option>
+                    <option value="dream">A Midsummer Night's Dream</option>
+                    <option value="j_caesar">Julius Caesar</option>
+                    <option value="pericles">Pericles</option>
+                    <option value="r_and_j">Romeo and Juliet</option>
+                    <option value="win_tale">A Winter's Tale</option>
+                  </select>
+                  <button>Submit</button>
+                </form>
+              </div>
+              <ul className="character-list">
+                {characterComponents}
+              </ul>
+            </div>
+          );
   }
 
 

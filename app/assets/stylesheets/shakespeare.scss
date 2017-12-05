@@ -1,0 +1,52 @@
+.character-list li{
+  padding: 5px 10px;
+  border: 1px solid black;
+}
+
+#mount-point{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.app-container{
+  display: flex;
+  flex-direction: column;
+}
+.form-container{
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+}
+
+h1{
+  font-size: 35px;
+}
+
+h2{
+  font-size: 20px;
+}
+
+button{
+  margin-left: 10px;
+  padding: 10px 15px;
+  box-sizing: border-box;
+  height: 50px;
+  border-radius: 4px;
+  text-align: center;
+  background-color: #697ec4;
+  opacity: none;
+  color: white;
+}
+button:hover{
+  background-color: #5674d7;
+}
+
+select {
+   -webkit-appearance: none;
+   -moz-appearance: none;
+   appearance: none;
+   padding: 10px 15px;
+   font-size: 20px;
+}
