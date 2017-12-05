@@ -2,8 +2,16 @@ require "api_endpoint"
 class Api::CharactersController < ApplicationController
 
   def index
-    api_endpoint = ApiEndpoint.new()
-
+    if(params[:play_name])
+      @play_name = params[:play_name]
+    end
+    api_endpoint = nil
+    debugger
+    if( @play_name )
+      api_endpoint = ApiEndpoint.new(@play_name)
+    else
+      api_endpoint = ApiEndpoint.new()
+    end
     play_info = api_endpoint.getPlayInfo()
 
     sorted_characters = play_info.characters.sort_by{|char| char.line_count}.reverse
