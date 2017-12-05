@@ -44,16 +44,17 @@ class PlayInfo
     end
   end
 
+  def characters
+    @characters
+  end
+
+  private
   def parseCharacterLines(play_xml, play_char)
     char_name = play_char.name
     character_line_nodes = play_xml.search("SPEAKER[text()=\"#{char_name}\"] ~ LINE")
     character_lines = character_line_nodes.map(&:inner_text)
 
     return character_lines ? character_lines : []
-  end
-
-  def characters
-    @characters
   end
 
 end
@@ -75,7 +76,7 @@ class Api
 end
 
 
-api_endpoint = Api.new()
+api_endpoint = Api.new('othello')
 
 play_info = api_endpoint.getPlayInfo()
 
