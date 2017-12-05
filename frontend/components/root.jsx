@@ -54,6 +54,10 @@ class Root extends React.Component{
           <option value="othello">Othello</option>
           <option value="hamlet">Hamlet</option>
           <option value="dream">A Midsummer Night's Dream</option>
+          <option value="j_caesar">Julius Caesar</option>
+          <option value="pericles">Pericles</option>
+          <option value="r_and_j">Romeo and Juliet</option>
+          <option value="win_tale">A Winter's Tale</option>
         </select>
         <button>Submit</button>
       </form>
