@@ -47,7 +47,7 @@ class Root extends React.Component{
       return (<li key={character.name}>{character.name} - {character.line_count}</li>)
     });
 
-    return (<div>
+    return (<div className="form-container">
       <form onSubmit={this.handleSubmit}>
         <select value={this.state.play_name} onChange={this.handleChange}>
           <option value="macbeth">Macbeth</option>
@@ -61,7 +61,7 @@ class Root extends React.Component{
         </select>
         <button>Submit</button>
       </form>
-      <ul>
+      <ul className="character-list">
         {characterComponents}
       </ul>
     </div>);
