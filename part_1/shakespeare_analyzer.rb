@@ -75,8 +75,10 @@ class Api
 
 end
 
+play_name = ARGV[0] ? ARGV[0] : 'macbeth'
+base_url = ARGV[1] ? ARGV[1] : 'http://www.ibiblio.org/xml/examples/shakespeare/'
 
-api_endpoint = Api.new('othello')
+api_endpoint = Api.new(play_name, base_url)
 
 play_info = api_endpoint.getPlayInfo()
 
