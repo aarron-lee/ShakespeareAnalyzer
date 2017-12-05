@@ -15,9 +15,7 @@ class Root extends React.Component{
   }
 
   handleChange(e){
-
     this.setState({play_name: e.target.value});
-
   }
 
   handleSubmit(e){
@@ -45,6 +43,9 @@ class Root extends React.Component{
   }
 
   render(){
+    let characterComponents = this.state['play_characters'].map((character)=>{
+      return (<li key={character.name}>{character.name} - {character.line_count}</li>)
+    });
 
     return (<div>
       <form onSubmit={this.handleSubmit}>
@@ -56,8 +57,10 @@ class Root extends React.Component{
         </select>
         <button>Submit</button>
       </form>
+      <ul>
+        {characterComponents}
+      </ul>
     </div>);
-
   }
 
 
