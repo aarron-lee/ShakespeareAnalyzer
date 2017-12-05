@@ -86,17 +86,3 @@ sorted_characters = play_info.characters.sort_by{|char| char.line_count}.reverse
 sorted_characters.each do |character|
   puts "#{character.name} - #{character.line_count}"
 end
-
-
-
-
-
-
-
-
-
-
-
-
-
-//
