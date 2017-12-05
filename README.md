@@ -1,24 +1,7 @@
-# README
+# Shakespeare Analyzer
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This project does a simple get request to one of the xml files at http://www.ibiblio.org/xml/examples/shakespeare/
 
-Things you may want to cover:
+It retrieves a play, parses the XML, and prints out the line count associated with each character
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+![Screenshot](./docs/screenshot.png)
