@@ -5,6 +5,9 @@ require 'byebug'
 
 class PlayCharacter
 
+  attr_reader :name
+  attr_reader :line_count
+
   def initialize(character_name="")
     @name = character_name
   end
@@ -12,14 +15,6 @@ class PlayCharacter
   def lines=(lines)
     @lines = lines
     @line_count = @lines.count
-  end
-
-  def name
-    @name
-  end
-
-  def line_count
-    @line_count
   end
 
   def lines
@@ -30,6 +25,8 @@ class PlayCharacter
 end
 
 class PlayInfo
+
+  attr_reader :characters
 
   def initialize( play_xml )
     if !play_xml
@@ -42,10 +39,6 @@ class PlayInfo
       play_char.lines = parseCharacterLines(play_xml, play_char)
       @characters.push(play_char)
     end
-  end
-
-  def characters
-    @characters
   end
 
   private
@@ -61,6 +54,9 @@ end
 
 
 class Api
+  attr_reader :play_name
+  attr_reader :base_url
+  attr_accessor :xml_info
 
   def initialize( play_name='macbeth', base_url=nil )
     @play_name = play_name
@@ -68,21 +64,28 @@ class Api
   end
 
   def getPlayInfo()
-    response = Faraday.get("#{@base_url}#{@play_name}.xml")
-    @xml_info = Nokogiri::XML.parse(response.body)
+    if !@xml_info
+      response = Faraday.get("#{@base_url}#{@play_name}.xml")
+      @xml_info = Nokogiri::XML.parse(response.body)
+    end
+    if( @xml_info.search("TITLE").length == 0 )
+      raise "Invalid API Endpoint used"
+    end
     PlayInfo.new( @xml_info )
   end
 
 end
 
-play_name = ARGV[0] ? ARGV[0] : 'macbeth'
-base_url = ARGV[1] ? ARGV[1] : 'http://www.ibiblio.org/xml/examples/shakespeare/'
+if $PROGRAM_NAME == __FILE__
+  play_name = ARGV[0] ? ARGV[0] : 'macbeth'
+  base_url = ARGV[1] ? ARGV[1] : 'http://www.ibiblio.org/xml/examples/shakespeare/'
 
-api_endpoint = Api.new(play_name, base_url)
+  api_endpoint = Api.new(play_name, base_url)
 
-play_info = api_endpoint.getPlayInfo()
+  play_info = api_endpoint.getPlayInfo()
 
-sorted_characters = play_info.characters.sort_by{|char| char.line_count}.reverse
-sorted_characters.each do |character|
-  puts "#{character.name} - #{character.line_count}"
+  sorted_characters = play_info.characters.sort_by{|char| char.line_count}.reverse
+  sorted_characters.each do |character|
+    puts "#{character.name} - #{character.line_count}"
+  end
 end
