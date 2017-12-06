@@ -9,6 +9,7 @@ class Root extends React.Component{
       play_name: 'macbeth',
       play_characters: [],
       errors: [],
+      loading: false
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -24,11 +25,11 @@ class Root extends React.Component{
     let root = this;
     let handleSuccess = (payload) =>{
       if(payload && payload.length){
-        root.setState({play_characters: payload, errors: []})
+        root.setState({play_characters: payload, errors: [], loading: false})
       }
     };
     let handleFailure = (payload) =>{
-      root.setState({errors: [payload], play_characters: []})
+      root.setState({errors: [payload], play_characters: [], loading: false})
     }
 
     let queryString = "?play_name=" + this.state.play_name;
@@ -40,12 +41,19 @@ class Root extends React.Component{
       handleSuccess,
       handleFailure);
 
+    this.setState({loading: true});
+
   }
 
   render(){
     let characterComponents = this.state['play_characters'].map((character)=>{
       return (<li key={character.name}>{character.name} - {character.line_count} lines</li>)
     });
+
+    let loadingSpinner = undefined;
+    if(this.state.loading){
+      loadingSpinner = (<div className="loader">Loading...</div>);
+    }
 
     return (<div className="app-container">
               <h1>Shakespeare Analyzer</h1>
@@ -68,6 +76,7 @@ class Root extends React.Component{
               <ul className="character-list">
                 {characterComponents}
               </ul>
+              {loadingSpinner}
             </div>
           );
   }
