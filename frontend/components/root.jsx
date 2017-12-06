@@ -8,7 +8,7 @@ class Root extends React.Component{
     this.state = {
       play_name: 'macbeth',
       play_characters: [],
-      errors: [],
+      errors: '',
       loading: false
     };
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -16,7 +16,7 @@ class Root extends React.Component{
   }
 
   handleChange(e){
-    this.setState({play_name: e.target.value});
+    this.setState({play_name: e.target.value, errors: ''});
   }
 
   handleSubmit(e){
