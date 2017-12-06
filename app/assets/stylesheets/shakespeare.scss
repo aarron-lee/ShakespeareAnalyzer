@@ -42,12 +42,16 @@ button{
   height: 50px;
   border-radius: 4px;
   text-align: center;
-  background-color: #697ec4;
+  background-color: #5674d7;
   opacity: none;
   color: white;
 }
 button:hover{
-  background-color: #5674d7;
+  background-color: #697ec4;
+}
+
+button:disabled{
+  background-color: #b0bfef;
 }
 
 select {

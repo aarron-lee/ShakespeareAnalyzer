@@ -22,13 +22,17 @@ class Root extends React.Component{
   handleSubmit(e){
     e.preventDefault();
 
+    this.refs['disable-target'].setAttribute("disabled", "disabled");
+
     let root = this;
     let handleSuccess = (payload) =>{
+      root.refs['disable-target'].removeAttribute("disabled");
       if(payload && payload.length){
         root.setState({play_characters: payload, errors: [], loading: false})
       }
     };
     let handleFailure = (payload) =>{
+      root.refs['disable-target'].removeAttribute("disabled");
       root.setState({errors: [payload], play_characters: [], loading: false})
     }
 
@@ -41,7 +45,7 @@ class Root extends React.Component{
       handleSuccess,
       handleFailure);
 
-    this.setState({loading: true});
+    this.setState({play_characters: [], loading: true});
 
   }
 
@@ -70,7 +74,7 @@ class Root extends React.Component{
                     <option value="r_and_j">Romeo and Juliet</option>
                     <option value="win_tale">A Winter's Tale</option>
                   </select>
-                  <button>Submit</button>
+                  <button ref="disable-target">Submit</button>
                 </form>
               </div>
               <ul className="character-list">
