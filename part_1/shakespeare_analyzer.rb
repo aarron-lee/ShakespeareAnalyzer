@@ -85,10 +85,16 @@ if $PROGRAM_NAME == __FILE__
 
   api_endpoint = Api.new(play_name, base_url)
 
-  play_info = api_endpoint.getPlayInfo()
-
-  sorted_characters = play_info.characters.sort_by{|char| char.line_count}.reverse
-  sorted_characters.each do |character|
-    puts "#{character.name} - #{character.line_count}"
+  play_info = nil
+  begin
+    play_info = api_endpoint.getPlayInfo
+  rescue Exception
+    puts "XML Request timed out, ibiblio might be running slow"
+  end
+  if play_info
+    sorted_characters = play_info.characters.sort_by{|char| char.line_count}.reverse
+    sorted_characters.each do |character|
+      puts "#{character.name} - #{character.line_count}"
+    end
   end
 end
