@@ -12,7 +12,10 @@ class ApiEndpoint
 
   def getPlayInfo()
     if !@xml_info
-      response = Faraday.get("#{@base_url}#{@play_name}.xml")
+      conn = Faraday.new( url: "#{@base_url}#{@play_name}.xml")
+      response = conn.get do |req|
+        req.options.timeout = 5
+      end
       @xml_info = Nokogiri::XML.parse(response.body)
     end
     if( @xml_info.search("TITLE").length == 0 )

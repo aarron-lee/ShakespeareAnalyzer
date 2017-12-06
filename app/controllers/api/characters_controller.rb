@@ -11,8 +11,12 @@ class Api::CharactersController < ApplicationController
     else
       api_endpoint = ApiEndpoint.new
     end
-    play_info = api_endpoint.getPlayInfo
-
+    play_info = nil
+    begin
+      play_info = api_endpoint.getPlayInfo
+    rescue Exception
+      return render json: { errors: "XML request timeout"}, status: 404
+    end
     sorted_characters = play_info.characters.sort_by{|char| char.line_count}.reverse
 
     render json: sorted_characters.map{ |char| { name: char.name, line_count: char.line_count } }

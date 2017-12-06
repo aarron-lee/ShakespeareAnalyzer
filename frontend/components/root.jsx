@@ -28,12 +28,12 @@ class Root extends React.Component{
     let handleSuccess = (payload) =>{
       root.refs['disable-target'].removeAttribute("disabled");
       if(payload && payload.length){
-        root.setState({play_characters: payload, errors: [], loading: false})
+        root.setState({play_characters: payload, errors: '', loading: false})
       }
     };
     let handleFailure = (payload) =>{
       root.refs['disable-target'].removeAttribute("disabled");
-      root.setState({errors: [payload], play_characters: [], loading: false})
+      root.setState({errors: payload.responseJSON.errors, play_characters: [], loading: false})
     }
 
     let queryString = "?play_name=" + this.state.play_name;
@@ -45,7 +45,7 @@ class Root extends React.Component{
       handleSuccess,
       handleFailure);
 
-    this.setState({play_characters: [], loading: true});
+    this.setState({play_characters: [], loading: true, errors: ''});
 
   }
 
@@ -59,8 +59,14 @@ class Root extends React.Component{
       loadingSpinner = (<div className="loader">Loading...</div>);
     }
 
+    let errorMessages = undefined;
+    if(this.state.errors.length > 0){
+      errorMessages = (<div className="errors">Error: {this.state.errors}</div>)
+    }
+
     return (<div className="app-container">
               <h1>Shakespeare Analyzer</h1>
+              {errorMessages}
               <div className="form-container">
                 <form onSubmit={this.handleSubmit}>
                   <h2>Select a Play to parse:</h2><br/>
